@@ -3,7 +3,7 @@ export interface SortingAlgorithm {
     average: string;
     worstCase: string;
     memory: string;
-    sort(arr: Array<string>): Array<string>;
+    sort: (arr: Array<Number>) => Array<string>;
 }
 
 export enum TypeOfAlgorithm {
@@ -16,3 +16,9 @@ export enum TypeOfAlgorithm {
     Shell,
     Bogo
 }
+export interface Isteps {
+    array: number[],
+    pair: number[],
+    pairIndex: number[],
+    isSorted: boolean
+};

@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import { Slider, Button, Divider } from "@mui/material";
+import React from "react";
+import { Slider, Button } from "@mui/material";
 import Menu from '@mui/material/Menu';
 import { MenuItem } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { TypeOfAlgorithm } from "../algorithms/algorithm";
-import { useDispatch } from "react-redux";
-import algorithm, { setAlgorithm } from "../slice/algorithm/algorithmSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setAlgorithm } from "../slice/algorithm/algorithmSlice";
 import { setSize } from "../slice/sizearray/sizeArraySlice";
-
-
-
+import "../styles/ToolBar.css";
+import { RootState } from "../store/store";
+import { generateArray } from "../utils/array";
+import { setArrayToSort } from "../slice/arraytosort/arrayToSortSlice";
+import { BubbleSort } from "../algorithms/BubbleSort";
+import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
 
 export const ToolBar = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const isOpen = Boolean(anchorEl);
     const dispatch = useDispatch();
-
+    const idk = useSelector((state: RootState) => state.pReducer)
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -32,8 +35,17 @@ export const ToolBar = () => {
         
         dispatch(setSize({size : size}))
     };
+    const sort = () => {       
+        BubbleSort(idk.arrayToSort.arrayToSort, dispatch);
+    }
+    const generateNewArray = () => {
+        let generated =  generateArray(30);
+        
+        dispatch(setArrayToSort({arrayToSort: generated}));  
+        dispatch(setArrayStep({array: generated}));  
+    }
     return(
-        <div>
+        <div className="ToolBox-container">
             <Slider
                 aria-label="Temperature"
                 defaultValue={50}
@@ -61,14 +73,17 @@ export const ToolBar = () => {
                 onClose={handleClose}
                 >
                 {Object.keys(TypeOfAlgorithm).filter(key =>!isNaN(Number(key)))
-                    .map(key => {
+                    .map((key, index) => {
                         return (
-                            <MenuItem onClick={() => chooseAlgorithm(TypeOfAlgorithm[Number(key)])} disableRipple>
+                            <MenuItem onClick={() => chooseAlgorithm(TypeOfAlgorithm[Number(key)])} key={index} disableRipple>
                                 {TypeOfAlgorithm[Number(key)]} sort
                             </MenuItem >
+                            
                         );
                 })}
             </Menu>
+            <Button onClick={sort}>Sort</Button>
+            <Button onClick={generateNewArray}>NewArray</Button>
         </div>
     );
 }
