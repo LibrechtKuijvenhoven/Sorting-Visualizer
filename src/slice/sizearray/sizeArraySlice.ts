@@ -1,7 +1,4 @@
-import { StarRate } from "@mui/icons-material"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-
 
 const sizeArraySlice = createSlice({
     name: 'SizeOfArray',

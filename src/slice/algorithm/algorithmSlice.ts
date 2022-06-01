@@ -14,8 +14,6 @@ const algorithmSlice = createSlice({
     initialState,
     reducers: {
       setAlgorithm: (state, action) => {
-          console.log(action);
-          
         state.algorithm = action.payload
       },
       clearAlgorithm: (state) => {
