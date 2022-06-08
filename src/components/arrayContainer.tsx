@@ -14,9 +14,7 @@ export const Arraycontainer = () => {
     
     return(
         <div className="Array-Bars-Container">
-        {props.array.map((v,i) => {
-            console.log(props.isSorted);
-            
+        {props.array.map((v,i) => {         
             return(
                 <div className={"Array-Bar "} key={i} style={
                     {height: v*2.5, 

@@ -3,25 +3,25 @@ import { Dispatch } from "react";
 import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
 import { Isteps} from "./algorithm";
 
-export const BubbleSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed:number) => {
+export const InsertionSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed: number) => {
     let steps: Isteps[] = [];
     let array = [...arr];       
     for(let i = 0; i < arr.length;i++){
-        for (let j = 0; j < arr.length - 1; j++) {
-            if(array[j] > array[j+1]){
-                let pair = [array[j], array[j+1]]
-                let tmparr = array.splice(0)
-                let tmp =tmparr[j]
-                tmparr[j] = tmparr[j+1]
-                tmparr[j+1] = tmp
+        let j = i
+        while (j > 0 && array[j - 1] > array[j]){
+                let pair = [array[j-1], array[j]]
+                let tmparr = [...array]
+                let tmp = tmparr[j]
+                tmparr[j] = tmparr[j-1]
+                tmparr[j-1] = tmp
                 steps.push({
                     array: [...tmparr], 
                     pair: pair,
-                    pairIndex:[j, j+1],
+                    pairIndex:[j-1, j],
                     isSorted: false
                 });
-                array = tmparr
-            }
+                array = [...tmparr]
+                j--;
         }
     }  
     steps.push({
@@ -30,7 +30,7 @@ export const BubbleSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed:nu
         pairIndex:[],
         isSorted: true
     });
-    dispatchArray(steps,speed,dispatch, array);
+    dispatchArray(steps,speed ,dispatch, array);
 } 
 const dispatchArray = (steps: Isteps[], speed: number, dispatch :Dispatch<AnyAction>, array: number[]) => {
     steps.forEach((step, i) => {
