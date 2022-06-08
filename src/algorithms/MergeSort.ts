@@ -1,42 +1,42 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
-import { Isteps } from "./algorithm";
+import { Isteps, SortingAlgorithm } from "./algorithm";
 
-
-export const MergeSort = (arr: number[], dispatch:Dispatch<AnyAction>) => {
-    let steps: Isteps[] = [];
-    let array = [...arr];   
-
-
-}
-const sort = (arr: number[], left: number, right: number) => {
-    if(left >= right) return;
-    let middle = left + (right -left  / 2);
-    sort(arr,left,middle);
-    sort(arr, middle+1, right);
-    merge(arr, left , middle ,right);
-}
-const merge = (arr: number[], left: number, middle: number, right : number) => {
-    let array: number[] = [];
-    let leftArr = arr.slice(0, middle);
-    let rightArr = arr.slice(middle + 1, arr.length);
-    // while(leftArr.length && rightArr.length){
-    //     if(leftArr[i] <)
-    // }
-
-
-}
-const dispatchArray = (steps: Isteps[], speed: number, dispatch :Dispatch<AnyAction>, array: number[]) => {
-    steps.forEach((step, i) => {
-        setTimeout(() => {
-            dispatch(setArrayStep({
-                array: step.array, 
-                pair: step.pair, 
-                pairIndex: step.pairIndex, 
-                isSorted: step.isSorted
-            }))
-        }, speed * i);
+export const MergeSort = (array: number[], steps : Isteps[]) => {
+    sort(array,  0, array.length - 1)
+    steps.push({
+        array: [...array],
+        pair: [0],
+        pairIndex: [],
+        isSorted: false
     });
 }
+const sort = (array: number[], left: number, right: number,) => {
+    if(left >= right) return;
+    let middle = Math.floor(left + (right-left)/2);
+    sort(array, left, middle);
+    sort(array, middle+1, right);
+    merge(array, left, middle, right);
+}
+const merge = (array: number[], left: number, middle: number, right : number) => {
+    let mergedArray: number[] = [];
+    let leftArr = array.slice(left, middle);
+    let rightArr = array.slice(middle + 1, right);
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            mergedArray.push(leftArr.shift()!)
+        }else{
+            mergedArray.push(rightArr.shift()!)
+        }
+    }
+    for(let i = left; i < right; i++){
+        let tmp = mergedArray.shift()!
+        array[i] = tmp === undefined ? array[i] : tmp
+    }
+}
 
+export const MergeSortAlgorithm: SortingAlgorithm = {
+    bestCase: "n log n",
+    average: "n log n",
+    worstCase: "n log n",
+    memory: "n",
+    name: "Merge Sort"
+}

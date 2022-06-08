@@ -1,16 +1,11 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
-import { Isteps} from "./algorithm";
+import { Isteps, SortingAlgorithm} from "./algorithm";
 
-export const BubbleSort = (arr: number[], dispatch:Dispatch<AnyAction>) => {
-    let steps: Isteps[] = [];
-    let array = [...arr];       
+export const BubbleSort = (arr: number[], steps: Isteps[]) => {      
     for(let i = 0; i < arr.length;i++){
         for (let j = 0; j < arr.length - 1; j++) {
-            if(array[j] > array[j+1]){
-                let pair = [array[j], array[j+1]]
-                let tmparr = array.splice(0)
+            if(arr[j] > arr[j+1]){
+                let pair = [arr[j], arr[j+1]]
+                let tmparr = arr.splice(0)
                 let tmp =tmparr[j]
                 tmparr[j] = tmparr[j+1]
                 tmparr[j+1] = tmp
@@ -20,27 +15,22 @@ export const BubbleSort = (arr: number[], dispatch:Dispatch<AnyAction>) => {
                     pairIndex:[j, j+1],
                     isSorted: false
                 });
-                array = tmparr
+                arr = tmparr
             }
         }
     }  
     steps.push({
-        array: [...array], 
+        array: [...arr], 
         pair: [],
         pairIndex:[],
         isSorted: true
     });
-    dispatchArray(steps,50,dispatch, array);
 } 
-const dispatchArray = (steps: Isteps[], speed: number, dispatch :Dispatch<AnyAction>, array: number[]) => {
-    steps.forEach((step, i) => {
-        setTimeout(() => {
-            dispatch(setArrayStep({
-                array: step.array, 
-                pair: step.pair, 
-                pairIndex: step.pairIndex, 
-                isSorted: step.isSorted
-            }))
-        }, speed * i);
-    });
+
+export const BubbleSortAlgorithm: SortingAlgorithm = {
+    bestCase: "n",
+    average: "n^{2}",
+    worstCase: "n^{2}",
+    memory: "1",
+    name: "Bubble Sort"
 }
