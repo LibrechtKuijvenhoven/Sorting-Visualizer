@@ -14,6 +14,8 @@ import { setArrayToSort } from "../slice/arraytosort/arrayToSortSlice";
 import { BubbleSort } from "../algorithms/BubbleSort";
 import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
 import { MergeSort } from "../algorithms/MergeSort";
+import { HeapSort } from "../algorithms/HeapSort";
+import { InsertionSort } from "../algorithms/InsertionSort";
 
 export const ToolBar = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -38,6 +40,7 @@ export const ToolBar = () => {
     };
     const sort = () => {       
         MergeSort(idk.arrayToSort.arrayToSort, dispatch);
+        BubbleSort(idk.arrayToSort.arrayToSort, dispatch, 150);
     }
     const generateNewArray = () => {
         let generated =  generateArray(30);

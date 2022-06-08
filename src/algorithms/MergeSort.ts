@@ -4,7 +4,7 @@ import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
 import { Isteps } from "./algorithm";
 
 
-export const MergeSort = (arr: number[], dispatch:Dispatch<AnyAction>) => {
+export const MergeSort = (arr: number[], dispatch:Dispatch<AnyAction>,speed : number) => {
 
     let steps: Isteps[] = [];
     let array = [...arr];   
@@ -15,7 +15,7 @@ export const MergeSort = (arr: number[], dispatch:Dispatch<AnyAction>) => {
         pairIndex: [],
         isSorted: false
     });
-    dispatchArray(steps, 200,dispatch, arr);
+    dispatchArray(steps, speed,dispatch, arr);
 }
 const sort = (arr: number[], left: number, right: number,) => {
     if(left >= right) return;
