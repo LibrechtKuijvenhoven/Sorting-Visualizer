@@ -13,6 +13,7 @@ import { generateArray } from "../utils/array";
 import { setArrayToSort } from "../slice/arraytosort/arrayToSortSlice";
 import { BubbleSort } from "../algorithms/BubbleSort";
 import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
+import { MergeSort } from "../algorithms/MergeSort";
 
 export const ToolBar = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -36,7 +37,7 @@ export const ToolBar = () => {
         dispatch(setSize({size : size}))
     };
     const sort = () => {       
-        BubbleSort(idk.arrayToSort.arrayToSort, dispatch);
+        MergeSort(idk.arrayToSort.arrayToSort, dispatch);
     }
     const generateNewArray = () => {
         let generated =  generateArray(30);
