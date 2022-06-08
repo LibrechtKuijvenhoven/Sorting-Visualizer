@@ -1,11 +1,6 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
-import { Isteps } from "./algorithm";
+import { Isteps, SortingAlgorithm } from "./algorithm";
 
-export const HeapSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed: number) =>{
-    let steps:Isteps[] = [];
-    let array = [...arr];
+export const HeapSort = (array: number[] , steps:Isteps[]) =>{
     let arrayLength = array.length;
     buildHeap(array, steps);
 
@@ -21,8 +16,6 @@ export const HeapSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed: num
         pairIndex:[],
         isSorted: true
     });
-
-    dispatchArray(steps, speed, dispatch, array);
 }
 
 const buildHeap = (array: number[] , steps: Isteps[]) => {
@@ -30,8 +23,8 @@ const buildHeap = (array: number[] , steps: Isteps[]) => {
     for (let i = Math.floor(length / 2) - 1; i >= 0; i--) {
         maxHeap(array, length, i, steps);
     }
-
 }
+
 const maxHeap = (array: number[], length: number, i: number, steps: Isteps[]) => {
     let left = 2 * i + 1
     let right = 2 * i + 2
@@ -40,7 +33,7 @@ const maxHeap = (array: number[], length: number, i: number, steps: Isteps[]) =>
         max = left
     if(right < length && array[right] > array[max])
         max = right
-    if(max != i){
+    if(max !== i){
         let pair = [array[i], array[max]]
         let tmp = array[i];
         array[i] = array[max];
@@ -55,15 +48,11 @@ const maxHeap = (array: number[], length: number, i: number, steps: Isteps[]) =>
         maxHeap(array, length, max, steps);
     }
 }
-const dispatchArray = (steps: Isteps[], speed: number, dispatch :Dispatch<AnyAction>, array: number[]) => {
-    steps.forEach((step, i) => {
-        setTimeout(() => {
-            dispatch(setArrayStep({
-                array: step.array, 
-                pair: step.pair, 
-                pairIndex: step.pairIndex, 
-                isSorted: step.isSorted
-            }))
-        }, speed * i);
-    });
+
+export const HeapSortAlgorithm: SortingAlgorithm = {
+    bestCase: "n log n",
+    average: "n log n",
+    worstCase: "n log n",
+    memory: "1",
+    name: "Heap Sort"
 }

@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './styles/App.css';
 import {ToolBar} from './components/toolBar';
 import React from 'react';
 import { Grid } from '@mui/material';
 import {Arraycontainer} from './components/arrayContainer';
 import { AlgoritmInfo } from './components/algorithmInfo';
-import { generateArray } from './utils/array';
 
 export const App = () =>{
   return (

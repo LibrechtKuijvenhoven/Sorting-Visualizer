@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Slider, Button } from "@mui/material";
 import Menu from '@mui/material/Menu';
 import { MenuItem } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { TypeOfAlgorithm } from "../algorithms/algorithm";
+import { getSortingAlgotihm, TypeOfAlgorithm } from "../algorithms/algorithm";
 import { useDispatch, useSelector } from "react-redux";
-import { setAlgorithm } from "../slice/algorithm/algorithmSlice";
-import { setSize } from "../slice/sizearray/sizeArraySlice";
 import "../styles/ToolBar.css";
 import { RootState } from "../store/store";
 import { generateArray } from "../utils/array";
-import { setArrayToSort } from "../slice/arraytosort/arrayToSortSlice";
-import { BubbleSort } from "../algorithms/BubbleSort";
 import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
-import { MergeSort } from "../algorithms/MergeSort";
-import { HeapSort } from "../algorithms/HeapSort";
-import { InsertionSort } from "../algorithms/InsertionSort";
+import { dispatchSort } from "../algorithms/dispatchSort";
+import { setAlgorithm } from "../slice/algorithm/algorithmSlice";
 
 export const ToolBar = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const isOpen = Boolean(anchorEl);
+    const [algorithm, setAlgorithmText] = useState("Algorithms");
+    const [sizeOfArray, setSizeOfArray] = useState(50);
     const dispatch = useDispatch();
-    const idk = useSelector((state: RootState) => state.pReducer)
+    const state = useSelector((state: RootState) => state.pReducer)
+    const isOpen = Boolean(anchorEl);
+
+    useEffect(() => {
+        generateNewArray()
+    },[]);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -30,50 +31,51 @@ export const ToolBar = () => {
         setAnchorEl(null);
     };
     const chooseAlgorithm = (TypeOfAlgorithm: any) => {
-        dispatch(setAlgorithm({algorithm: TypeOfAlgorithm}));
+        setAlgorithmText(TypeOfAlgorithm + " sort");
+        dispatch(setAlgorithm(getSortingAlgotihm(TypeOfAlgorithm)));
         setAnchorEl(null);
     };
-    const chooseSizeOfArrayToSort = (size: number | number[]) => {
-        console.log(size);
-        
-        dispatch(setSize({size : size}))
+    const chooseSizeOfArrayToSort = (size: number | number[]) => { 
+        if (typeof size === "number" ){    
+            setSizeOfArray(size);
+            generateNewArray();
+        }
     };
     const sort = () => {       
-        MergeSort(idk.arrayToSort.arrayToSort, dispatch);
-        BubbleSort(idk.arrayToSort.arrayToSort, dispatch, 150);
+        dispatchSort(state.arraySteps.array, dispatch, 150, state.algorithm.algorithm!);
     }
     const generateNewArray = () => {
-        let generated =  generateArray(30);
-        
-        dispatch(setArrayToSort({arrayToSort: generated}));  
-        dispatch(setArrayStep({array: generated}));  
+        let generated =  generateArray(sizeOfArray);
+        dispatch(setArrayStep({
+            array: generated, 
+            pair: [], 
+            pairIndex: [], 
+            isSorted: false
+        }));  
     }
     return(
         <div className="ToolBox-container">
-            <Slider
-                aria-label="Temperature"
+            <p>Size of array: {sizeOfArray}</p>
+            <Slider aria-label="SizeOfArray"
                 defaultValue={50}
-                step={10}
                 min={10}
-                max={110}
+                max={100}
                 onChange = {(e,v) => chooseSizeOfArrayToSort(v)}
             />
-            <Button 
-                aria-controls={isOpen ? 'algo-menu' : undefined}
+            <Button aria-controls={isOpen ? 'algo-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={isOpen ? 'true' : undefined}
                 variant="contained"
                 onClick={handleClick}
                 endIcon={<KeyboardArrowDownIcon />}
-            >
-                Algoritms
+            >{algorithm}
             </Button>
             <Menu id="algo-menu" 
                 MenuListProps={{
                     'aria-labelledby': 'algo-menu-button',
                 }}
                 anchorEl={anchorEl}
-                open={isOpen}
+                open={isOpen} 
                 onClose={handleClose}
                 >
                 {Object.keys(TypeOfAlgorithm).filter(key =>!isNaN(Number(key)))
@@ -82,12 +84,11 @@ export const ToolBar = () => {
                             <MenuItem onClick={() => chooseAlgorithm(TypeOfAlgorithm[Number(key)])} key={index} disableRipple>
                                 {TypeOfAlgorithm[Number(key)]} sort
                             </MenuItem >
-                            
                         );
                 })}
             </Menu>
             <Button onClick={sort}>Sort</Button>
-            <Button onClick={generateNewArray}>NewArray</Button>
+            <Button onClick={generateNewArray}>Generate New Array</Button>
         </div>
     );
 }

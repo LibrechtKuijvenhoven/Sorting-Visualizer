@@ -16,12 +16,13 @@ export const Arraycontainer = () => {
         <div className="Array-Bars-Container">
         {props.array.map((v,i) => {         
             return(
+                
                 <div className={"Array-Bar "} key={i} style={
                     {height: v*2.5, 
                     background: 
                         props.isSorted ? green[500] : 
                                             props.pair?.includes(v) ? yellow[500] : blue[500]}}>
-                    {v}
+                    {props.array.length < 50 ? v : ''}
                 </div>
                 )
             })
