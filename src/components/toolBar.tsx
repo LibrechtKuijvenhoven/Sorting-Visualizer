@@ -42,7 +42,7 @@ export const ToolBar = () => {
         }
     };
     const sort = () => {       
-        dispatchSort(state.arraySteps.array, dispatch, 150, state.algorithm.algorithm!);
+        dispatchSort(state.arraySteps.array, dispatch, 25, state.algorithm.algorithm!);
     }
     const generateNewArray = () => {
         let generated =  generateArray(sizeOfArray);
