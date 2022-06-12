@@ -1,30 +1,21 @@
 import { Isteps, SortingAlgorithm} from "./algorithm";
 
-export const BubbleSort = (arr: number[], steps: Isteps[]) => {      
-    for(let i = 0; i < arr.length;i++){
-        for (let j = 0; j < arr.length - 1; j++) {
-            if(arr[j] > arr[j+1]){
-                let pair = [arr[j], arr[j+1]]
-                let tmparr = arr.splice(0)
-                let tmp =tmparr[j]
-                tmparr[j] = tmparr[j+1]
-                tmparr[j+1] = tmp
-                steps.push({
-                    array: [...tmparr], 
-                    pair: pair,
-                    pairIndex:[j, j+1],
-                    isSorted: false
-                });
-                arr = tmparr
-            }
+export const BubbleSort = (array: number[], steps: Isteps[]) => {      
+    for(let i = 0; i < array.length;i++){
+        for (let j = 0; j < array.length - 1; j++) {
+            if(array[j] <= array[j+1]) continue;
+
+            steps.push({
+                array: [...array], 
+                pair: [array[j], array[j+1]],
+                pairIndex:[j, j+1],
+                isSorted: false
+            });
+            let tmp =array[j]
+            array[j] = array[j+1]
+            array[j+1] = tmp
         }
     }  
-    steps.push({
-        array: [...arr], 
-        pair: [],
-        pairIndex:[],
-        isSorted: true
-    });
 } 
 
 export const BubbleSortAlgorithm: SortingAlgorithm = {

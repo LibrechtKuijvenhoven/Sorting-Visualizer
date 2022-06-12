@@ -3,6 +3,8 @@ import { HeapSortAlgorithm } from "./HeapSort";
 import { InsertionSortAlgorithm } from "./InsertionSort";
 import { MergeSortAlgorithm } from "./MergeSort";
 import { QuickSortAlgorithm } from "./QuickSort";
+import { SelectionSortAlgorithm } from "./SelectionSort";
+
 export type SortingAlgorithm = {
     bestCase: string,
     average: string,
@@ -25,6 +27,8 @@ export const getSortingAlgotihm = (algorithm: string): SortingAlgorithm => {
             return InsertionSortAlgorithm;
         case "Quick":
             return QuickSortAlgorithm;
+        case "Selection":
+            return SelectionSortAlgorithm;
         default:
             return HeapSortAlgorithm;
     }

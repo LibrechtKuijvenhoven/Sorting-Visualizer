@@ -33,20 +33,20 @@ const maxHeap = (array: number[], length: number, i: number, steps: Isteps[]) =>
         max = left
     if(right < length && array[right] > array[max])
         max = right
-    if(max !== i){
-        let pair = [array[i], array[max]]
-        let tmp = array[i];
-        array[i] = array[max];
-        array[max] = tmp;
+        
+    if(max === i) return;
 
-        steps.push({
-            array: [...array], 
-            pair: pair,
-            pairIndex:[],
-            isSorted: false
-        });
-        maxHeap(array, length, max, steps);
-    }
+    let pair = [array[i], array[max]]
+    let tmp = array[i];
+    array[i] = array[max];
+    array[max] = tmp;
+    steps.push({
+        array: [...array], 
+        pair: pair,
+        pairIndex:[],
+        isSorted: false
+    });
+    maxHeap(array, length, max, steps);
 }
 
 export const HeapSortAlgorithm: SortingAlgorithm = {

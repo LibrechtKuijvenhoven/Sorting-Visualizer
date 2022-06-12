@@ -6,6 +6,7 @@ import { HeapSort } from "./HeapSort";
 import { InsertionSort } from "./InsertionSort";
 import { MergeSort } from "./MergeSort";
 import { QuickSort } from "./QuickSort";
+import { SelectionSort } from "./SelectionSort";
 
 export const dispatchSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed : number, algorithm: SortingAlgorithm) =>{
     let array = [...arr];
@@ -23,8 +24,11 @@ export const dispatchSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed 
         case "Insertion Sort":
             InsertionSort(array, steps);
             break;
-        case "Quick sort":
+        case "Quick Sort":
             QuickSort(array, steps);
+            break;
+        case "Selection Sort":
+            SelectionSort(array, steps);
             break;
     }    
     steps.push({

@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { SortingAlgorithm } from "../../algorithms/algorithm"
+import { HeapSortAlgorithm } from "../../algorithms/HeapSort"
 
 interface IAlgorithm {
     algorithm?: SortingAlgorithm
 }
 
 const initialState: IAlgorithm = {
-    algorithm : undefined,
+    algorithm : HeapSortAlgorithm,
 }
 
 const algorithmSlice = createSlice({

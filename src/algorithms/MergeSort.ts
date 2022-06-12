@@ -13,7 +13,7 @@ const sort = (array: number[], left: number, right: number,steps: Isteps[]) => {
 }
 const merge = (array: number[], left: number, middle: number, right : number,steps: Isteps[]) => {
     let mergedArray: number[] = [];
-    let leftArr :number[] = [];
+    let leftArr: number[] = [];
     let rightArr: number[] = [];
     
     for (let i = 0; i < (middle - left + 1); i++)
@@ -34,8 +34,10 @@ const merge = (array: number[], left: number, middle: number, right : number,ste
             mergedArray.push(rightArr.shift()!)
         }
     }
-    while(leftArr.length){mergedArray.push(leftArr.shift()!)}
-    while(rightArr.length){mergedArray.push(rightArr.shift()!)}
+    while(leftArr.length)
+        mergedArray.push(leftArr.shift()!)
+    while(rightArr.length)
+        mergedArray.push(rightArr.shift()!)
     let i = left;
     while(mergedArray.length){
         let tmp = mergedArray.shift()
