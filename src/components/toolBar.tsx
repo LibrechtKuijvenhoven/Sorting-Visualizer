@@ -13,6 +13,7 @@ import { dispatchSort } from "../algorithms/dispatchSort";
 import { setAlgorithm } from "../slice/algorithm/algorithmSlice";
 
 export const ToolBar = () => {
+    const isSorting = useSelector((state: RootState) => (state.pReducer.isSorting))
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [algorithm, setAlgorithmText] = useState("Algorithms");
     const [sizeOfArray, setSizeOfArray] = useState(50);
@@ -21,7 +22,7 @@ export const ToolBar = () => {
     const isOpen = Boolean(anchorEl);
 
     useEffect(() => {
-        generateNewArray()
+        generateNewArray()        
     },[]);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,15 +55,16 @@ export const ToolBar = () => {
         }));  
     }
     return(
-        <div className="ToolBox-container">
-            <p>Size of array: {sizeOfArray}</p>
-            <Slider aria-label="SizeOfArray"
+        <div className={isSorting ? "ToolBox-container disabled" : "ToolBox-container" } > 
+            <p className="size-of-array">Size of array: {sizeOfArray}</p>
+            <Slider className="slider" aria-label="SizeOfArray"
                 defaultValue={50}
                 min={10}
                 max={100}
                 onChange = {(e,v) => chooseSizeOfArrayToSort(v)}
             />
             <Button aria-controls={isOpen ? 'algo-menu' : undefined}
+                className="type-selector"
                 aria-haspopup="true"
                 aria-expanded={isOpen ? 'true' : undefined}
                 variant="contained"
@@ -87,8 +89,8 @@ export const ToolBar = () => {
                         );
                 })}
             </Menu>
-            <Button onClick={sort}>Sort</Button>
-            <Button onClick={generateNewArray}>Generate New Array</Button>
+            <Button className="sort-button" onClick={sort}>Sort</Button>
+            <Button className="new-array-button" onClick={generateNewArray}>Generate New Array</Button>
         </div>
     );
 }

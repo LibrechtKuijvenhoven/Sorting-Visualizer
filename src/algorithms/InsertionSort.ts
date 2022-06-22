@@ -20,8 +20,8 @@ export const InsertionSort = (array: number[], steps: Isteps[] ) => {
 } 
 export const InsertionSortAlgorithm: SortingAlgorithm = {
     bestCase: "n",
-    average: "n^{2}",
-    worstCase: "n^{2}",
+    average: "n^2",
+    worstCase: "n^2",
     memory: "1",
     name: "Insertion Sort"
 }

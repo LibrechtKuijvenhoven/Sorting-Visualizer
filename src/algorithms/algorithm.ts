@@ -39,9 +39,7 @@ export enum TypeOfAlgorithm {
     Bubble,
     Merge,
     Insertion,
-    Selection,
-    Shell,
-    Bogo
+    Selection
 }
 export interface Isteps {
     array: number[],

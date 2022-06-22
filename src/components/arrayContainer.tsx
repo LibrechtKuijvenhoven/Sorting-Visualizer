@@ -1,3 +1,4 @@
+import { Card } from "@mui/material";
 import { blue, green, yellow } from "@mui/material/colors";
 import React from "react"
 import { useSelector } from "react-redux";
@@ -13,20 +14,22 @@ export const Arraycontainer = () => {
     }))
     
     return(
-        <div className="Array-Bars-Container">
-        {props.array.map((v,i) => {         
-            return(
-                
-                <div className={"Array-Bar "} key={i} style={
-                    {height: v*2.5, 
-                    background: 
-                        props.isSorted ? green[500] : 
-                                            props.pair?.includes(v) ? yellow[500] : blue[500]}}>
-                    {props.array.length < 50 ? v : ''}
-                </div>
-                )
-            })
-        }
-        </div>
+        <Card className="array-card">
+            <div className="Array-Bars-Container" >
+                {props.array.map((v,i) => {         
+                    return(
+                        <div className={"Array-Bar "} key={i} style={
+                            {height: v*2.5,
+                            
+                            background: 
+                                props.isSorted ? green[500] : 
+                                                    props.pair?.includes(v) ? yellow[500] : blue[500]}}>
+                            {props.array.length < 51 ? v : ''}
+                        </div>
+                        )
+                    })
+                }
+            </div>
+        </Card>
     )
 }

@@ -20,8 +20,8 @@ export const BubbleSort = (array: number[], steps: Isteps[]) => {
 
 export const BubbleSortAlgorithm: SortingAlgorithm = {
     bestCase: "n",
-    average: "n^{2}",
-    worstCase: "n^{2}",
+    average: "n^2",
+    worstCase: "n^2",
     memory: "1",
     name: "Bubble Sort"
 }

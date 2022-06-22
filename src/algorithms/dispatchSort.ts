@@ -1,5 +1,6 @@
 import { AnyAction, Dispatch } from "redux";
 import { setArrayStep } from "../slice/arraysteps/arrayStepsSlice";
+import { setIsSorting } from "../slice/arraysteps/isSortingSlice";
 import { Isteps, SortingAlgorithm } from "./algorithm";
 import { BubbleSort } from "./BubbleSort";
 import { HeapSort } from "./HeapSort";
@@ -11,6 +12,9 @@ import { SelectionSort } from "./SelectionSort";
 export const dispatchSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed : number, algorithm: SortingAlgorithm) =>{
     let array = [...arr];
     let steps: Isteps[] = [];
+
+    dispatch(setIsSorting(true));
+
     switch (algorithm.name){
         case "Merge Sort":
             MergeSort(array, steps);
@@ -37,7 +41,6 @@ export const dispatchSort = (arr: number[], dispatch:Dispatch<AnyAction>, speed 
         pairIndex: [],
         isSorted: true
     });
-    
     dispatchArray(steps, speed, dispatch, array);
 }
 
@@ -52,4 +55,7 @@ const dispatchArray = (steps: Isteps[], speed: number, dispatch :Dispatch<AnyAct
             }))
         }, speed * i);
     });
+    setTimeout(() => {
+        dispatch(setIsSorting(false));        
+    }, speed * steps.length)
 }

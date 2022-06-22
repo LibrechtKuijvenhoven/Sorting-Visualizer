@@ -1,3 +1,30 @@
 .ToolBox-container{
-    
+    display: flex;
+    align-items: center;
+    width: 60vw;
+    justify-content: center;
+    margin: 1em 0;
+}
+
+div.disabled
+{
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.slider{
+    max-width: 15%;
+}
+
+
+.slider,
+.sort-button,
+.ToolBox-container .size-of-array,
+.ToolBox-container .type-selector,
+.ToolBox-container .new-array-button {
+    margin: 0 .5em ;
+}
+
+.size-of-array{
+    margin: 0.2em 0;
 }
