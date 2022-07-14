@@ -25,7 +25,6 @@ const merge = (array: number[], left: number, middle: number, right : number,ste
         steps.push({
             array: [...array],
             pair: [leftArr[0],rightArr[0]],
-            pairIndex: [],
             isSorted: false
         });  
         if(leftArr[0] < rightArr[0]){
@@ -45,7 +44,6 @@ const merge = (array: number[], left: number, middle: number, right : number,ste
         steps.push({
             array: [...array],
             pair: [array[i]],
-            pairIndex: [],
             isSorted: false
         });
         i++;

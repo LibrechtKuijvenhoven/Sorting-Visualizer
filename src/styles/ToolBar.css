@@ -1,7 +1,7 @@
 .ToolBox-container{
     display: flex;
     align-items: center;
-    width: 60vw;
+    width: 70vw;
     justify-content: center;
     margin: 1em 0;
 }
@@ -15,14 +15,17 @@ div.disabled
 .slider{
     max-width: 15%;
 }
-
+.active {
+    background-color: rgba(0, 0, 0, 0.02);
+}
 
 .slider,
 .sort-button,
 .ToolBox-container .size-of-array,
 .ToolBox-container .type-selector,
-.ToolBox-container .new-array-button {
-    margin: 0 .5em ;
+.ToolBox-container .new-array-button,
+.ToolBox-container p {
+    margin: 0.1em .5em ;
 }
 
 .size-of-array{

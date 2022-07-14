@@ -11,7 +11,6 @@ export const InsertionSort = (array: number[], steps: Isteps[] ) => {
             steps.push({
                 array: [...array], 
                 pair: pair,
-                pairIndex:[j-1, j],
                 isSorted: false
             });
             j--;

@@ -7,7 +7,6 @@ export const SelectionSort = (array:number[], steps: Isteps[]) => {
         steps.push({
             array: [...array],
             pair: [tmp,array[min]],
-            pairIndex: [],
             isSorted: false
         }); 
         
@@ -21,7 +20,6 @@ const getMin = (array:number[],startIndex: number, steps:Isteps[]): number => {
         steps.push({
             array: [...array],
             pair: [array[i]],
-            pairIndex: [],
             isSorted: false
         }); 
         if(array[i] < array[minIndex])

@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IState{
-    array: number[], 
-    pair: number[],
-    pairIndex: number[],
-    isSorted: boolean
+  array: number[], 
+  pair: number[],
+  isSorted: boolean
 }
 
 const initialstate: IState ={
   array: [], 
   pair: [],
-  pairIndex: [],
   isSorted : false
 }
 

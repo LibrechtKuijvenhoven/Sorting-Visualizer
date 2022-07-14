@@ -3,6 +3,7 @@ import { HeapSortAlgorithm } from "./HeapSort";
 import { InsertionSortAlgorithm } from "./InsertionSort";
 import { MergeSortAlgorithm } from "./MergeSort";
 import { QuickSortAlgorithm } from "./QuickSort";
+import { RadixSortAlgorithm } from "./radixSort";
 import { SelectionSortAlgorithm } from "./SelectionSort";
 
 export type SortingAlgorithm = {
@@ -29,6 +30,8 @@ export const getSortingAlgotihm = (algorithm: string): SortingAlgorithm => {
             return QuickSortAlgorithm;
         case "Selection":
             return SelectionSortAlgorithm;
+        case "Radix":
+            return RadixSortAlgorithm;
         default:
             return HeapSortAlgorithm;
     }
@@ -39,11 +42,11 @@ export enum TypeOfAlgorithm {
     Bubble,
     Merge,
     Insertion,
-    Selection
+    Selection,
+    Radix
 }
 export interface Isteps {
     array: number[],
     pair: number[],
-    pairIndex: number[],
     isSorted: boolean
 };

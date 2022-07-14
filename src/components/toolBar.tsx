@@ -15,8 +15,9 @@ import { setAlgorithm } from "../slice/algorithm/algorithmSlice";
 export const ToolBar = () => {
     const isSorting = useSelector((state: RootState) => (state.pReducer.isSorting))
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [algorithm, setAlgorithmText] = useState("Algorithms");
-    const [sizeOfArray, setSizeOfArray] = useState(50);
+    const [algorithm, setAlgorithmText] = useState<string>("Algorithms");
+    const [sizeOfArray, setSizeOfArray] = useState<number>(100);
+    const [speedOfSort, setSpeedOfSort] = useState<number>(10);
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.pReducer)
     const isOpen = Boolean(anchorEl);
@@ -42,15 +43,19 @@ export const ToolBar = () => {
             generateNewArray();
         }
     };
+    const chooseSpeedToSort = (speed: number | number[]) => { 
+        if (typeof speed === "number" ){    
+            setSpeedOfSort(speed);
+        }
+    };
     const sort = () => {       
-        dispatchSort(state.arraySteps.array, dispatch, 25, state.algorithm.algorithm!);
+        dispatchSort(state.arraySteps.array, dispatch, speedOfSort, state.algorithm.algorithm!);
     }
     const generateNewArray = () => {
         let generated =  generateArray(sizeOfArray);
         dispatch(setArrayStep({
             array: generated, 
             pair: [], 
-            pairIndex: [], 
             isSorted: false
         }));  
     }
@@ -58,10 +63,17 @@ export const ToolBar = () => {
         <div className={isSorting ? "ToolBox-container disabled" : "ToolBox-container" } > 
             <p className="size-of-array">Size of array: {sizeOfArray}</p>
             <Slider className="slider" aria-label="SizeOfArray"
-                defaultValue={50}
+                defaultValue={sizeOfArray}
                 min={10}
-                max={100}
+                max={200}
                 onChange = {(e,v) => chooseSizeOfArrayToSort(v)}
+            />
+            <p className="speed-of-sort">Sorting speed: {speedOfSort}ms</p>
+            <Slider className="slider" aria-label="SpeedOfSort"
+                defaultValue={speedOfSort}
+                min={10}
+                max={200}
+                onChange = {(e,v) => chooseSpeedToSort(v)}
             />
             <Button aria-controls={isOpen ? 'algo-menu' : undefined}
                 className="type-selector"
@@ -83,7 +95,8 @@ export const ToolBar = () => {
                 {Object.keys(TypeOfAlgorithm).filter(key =>!isNaN(Number(key)))
                     .map((key, index) => {
                         return (
-                            <MenuItem onClick={() => chooseAlgorithm(TypeOfAlgorithm[Number(key)])} key={index} disableRipple>
+                            <MenuItem onClick={() => chooseAlgorithm(TypeOfAlgorithm[Number(key)])} key={index} disableRipple 
+                            className={algorithm === TypeOfAlgorithm[Number(key)] ? "active" : ""}>
                                 {TypeOfAlgorithm[Number(key)]} sort
                             </MenuItem >
                         );

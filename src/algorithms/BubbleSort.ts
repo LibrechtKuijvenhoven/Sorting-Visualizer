@@ -8,7 +8,6 @@ export const BubbleSort = (array: number[], steps: Isteps[]) => {
             steps.push({
                 array: [...array], 
                 pair: [array[j], array[j+1]],
-                pairIndex:[j, j+1],
                 isSorted: false
             });
             let tmp =array[j]

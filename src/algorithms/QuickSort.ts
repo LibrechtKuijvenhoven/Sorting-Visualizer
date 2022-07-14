@@ -24,7 +24,6 @@ const partion = (array: number[], left: number, right: number, steps:Isteps[]): 
         steps.push({
             array: [...array],
             pair: [tmp,array[i]],
-            pairIndex: [],
             isSorted: false
         }); 
         array[pivotIndex] = array[i];
@@ -35,7 +34,6 @@ const partion = (array: number[], left: number, right: number, steps:Isteps[]): 
     steps.push({
         array: [...array],
         pair: [tmp,array[right]],
-        pairIndex: [],
         isSorted: false
     }); 
     

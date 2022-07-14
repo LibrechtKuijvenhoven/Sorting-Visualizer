@@ -13,7 +13,6 @@ export const HeapSort = (array: number[] , steps:Isteps[]) =>{
     steps.push({
         array: [...array], 
         pair: [],
-        pairIndex:[],
         isSorted: true
     });
 }
@@ -43,7 +42,6 @@ const maxHeap = (array: number[], length: number, i: number, steps: Isteps[]) =>
     steps.push({
         array: [...array], 
         pair: pair,
-        pairIndex:[],
         isSorted: false
     });
     maxHeap(array, length, max, steps);

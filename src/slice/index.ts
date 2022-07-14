@@ -12,7 +12,6 @@ export const rootReducer = combineReducers({
     isSorting: isSortingSlice
 });
 const pReducer = (state: any, action: any) => {
-  
     return rootReducer(state, action)
 }
   

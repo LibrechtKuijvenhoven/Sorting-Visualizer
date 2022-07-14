@@ -9,7 +9,6 @@ export const Arraycontainer = () => {
     const props = useSelector((state: RootState) => ({
         array: state.pReducer.arraySteps.array,
         pair: state.pReducer.arraySteps.pair,
-        pairIndex: state.pReducer.arraySteps.pairIndex,
         isSorted: state.pReducer.arraySteps.isSorted
     }))
     
@@ -19,12 +18,12 @@ export const Arraycontainer = () => {
                 {props.array.map((v,i) => {         
                     return(
                         <div className={"Array-Bar "} key={i} style={
-                            {height: v*2.5,
+                            {height: (v/250)*80+"vh",
                             
                             background: 
-                                props.isSorted ? green[500] : 
+                                props.isSorted && props.pair?.includes(v) ? green[500] : 
                                                     props.pair?.includes(v) ? yellow[500] : blue[500]}}>
-                            {props.array.length < 51 ? v : ''}
+                            {props.array.length < 30 ? v : ''}
                         </div>
                         )
                     })
