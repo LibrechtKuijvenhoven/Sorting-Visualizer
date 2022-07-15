@@ -18,8 +18,7 @@ export const Arraycontainer = () => {
                 {props.array.map((v,i) => {         
                     return(
                         <div className={"Array-Bar "} key={i} style={
-                            {height: (v/250)*80+"vh",
-                            
+                            {height: (v*2.5),                            
                             background: 
                                 props.isSorted && props.pair?.includes(v) ? green[500] : 
                                                     props.pair?.includes(v) ? yellow[500] : blue[500]}}>
